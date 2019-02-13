@@ -10,15 +10,4 @@ server.use(express.json());
 server.use('/users', routerUsers);
 server.use('/posts', routerPosts);
 
-server.get('/', (req, res) => {
-    userDb
-    .get()
-    .then( users => {
-        res.status(200).json(users)
-    })
-    .catch( err => {
-        console.log(err)
-    })
-});
-
 module.exports = server;
