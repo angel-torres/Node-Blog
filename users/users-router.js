@@ -21,6 +21,21 @@ routerUsers.get('/:id', (req, res) => {
     .catch( err => {res.status(500).json({message: 'The user could not be retreived.'})})
 })
 
+routerUsers.get('/:id/posts', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const posts =  await Users.getUserPosts(id);
+        console.log(posts)
+        if (posts.length < 1) {
+            res.status(404).json({errorMessage: "There are no posts to retreive."})
+        } else {
+            res.status(200).json(posts)
+        }
+    } catch {
+        res.status(500).json({errorMessage:"Could not retreive user posts."})
+    }
+})
+
 routerUsers.post('/', (req, res) => {
     const user = req.body;
     if (!req.body.name) {
